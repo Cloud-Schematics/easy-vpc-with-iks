@@ -1,0 +1,11 @@
+terraform.tfvars
+.terraform.*
+.terraform/
+.DS_Store
+terraform.*.*
+terraform.tfstate
+provider.tf
+*.x
+*.yaml
+dev.sh
+*.sh
