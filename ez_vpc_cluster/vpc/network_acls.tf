@@ -6,7 +6,7 @@ locals {
   cluster_rules = [
     # Cluster Rules
     {
-      name        = "roks-create-worker-nodes-inbound"
+      name        = "iks-create-worker-nodes-inbound"
       action      = "allow"
       source      = "161.26.0.0/16"
       destination = "0.0.0.0/0"
@@ -16,7 +16,7 @@ locals {
       icmp        = null
     },
     {
-      name        = "roks-create-worker-nodes-outbound"
+      name        = "iks-create-worker-nodes-outbound"
       action      = "allow"
       destination = "161.26.0.0/16"
       source      = "0.0.0.0/0"
@@ -26,7 +26,7 @@ locals {
       icmp        = null
     },
     {
-      name        = "roks-nodes-to-service-inbound"
+      name        = "iks-nodes-to-service-inbound"
       action      = "allow"
       source      = "166.8.0.0/14"
       destination = "0.0.0.0/0"
@@ -36,7 +36,7 @@ locals {
       icmp        = null
     },
     {
-      name        = "roks-nodes-to-service-outbound"
+      name        = "iks-nodes-to-service-outbound"
       action      = "allow"
       destination = "166.8.0.0/14"
       source      = "0.0.0.0/0"

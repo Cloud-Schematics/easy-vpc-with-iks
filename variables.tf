@@ -23,7 +23,7 @@ variable "TF_VERSION" {
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a letter. This prefix will be prepended to any resources provisioned by this template."
   type        = string
-  default     = "ez-multizone-roks"
+  default     = "ez-multizone-iks"
 
   validation {
     error_message = "Prefix must begin and end with a letter and contain only letters, numbers, and - characters."
@@ -137,15 +137,10 @@ variable "wait_till" {
 # Override Variables
 ##############################################################################
 
-variable "override_json" {
-  description = "Override any values with JSON to create a completely custom network. All quotation marks must be correctly escaped."
-  type        = string
-  default     = "{}"
-
-  validation {
-    error_message = "Override JSON must be able to be parsed by Terraform."
-    condition     = can(jsondecode(var.override_json))
-  }
+variable "override" {
+  description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
+  type        = bool
+  default     = true
 }
 
 ##############################################################################

@@ -5,7 +5,7 @@
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a letter. This prefix will be prepended to any resources provisioned by this template."
   type        = string
-  default     = "ez-multizone-roks"
+  default     = "ez-multizone-iks"
 
   validation {
     error_message = "Prefix must begin and end with a letter and contain only letters, numbers, and - characters."
@@ -69,7 +69,7 @@ variable "classic_access" {
 ##############################################################################
 
 variable "iks_cluster_version" {
-  description = "IKS Cluster version. To get a list of valid versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as `default`."
+  description = "iks Cluster version. To get a list of valid versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as `default`."
   type        = string
   default     = "default"
 }
@@ -83,11 +83,11 @@ variable "machine_type" {
 variable "workers_per_zone" {
   description = "Number of workers to provision in each subnet"
   type        = number
-  default     = 1
+  default     = 2
 
   validation {
-    error_message = "There must be at least one worker in each zone."
-    condition     = var.workers_per_zone > 0
+    error_message = "Each zone must contain at least 2 workers."
+    condition     = var.workers_per_zone >= 2
   }
 }
 
