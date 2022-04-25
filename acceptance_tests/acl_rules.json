@@ -1,0 +1,200 @@
+[
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "iks-create-worker-nodes-inbound",
+    "source": "161.26.0.0/16",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "161.26.0.0/16",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "iks-create-worker-nodes-outbound",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "iks-nodes-to-service-inbound",
+    "source": "166.8.0.0/14",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "166.8.0.0/14",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "iks-nodes-to-service-outbound",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "allow-app-incoming-traffic-requests",
+    "source": "0.0.0.0/0",
+    "tcp": [
+      {
+        "port_max": 65535,
+        "port_min": 1,
+        "source_port_max": 30000,
+        "source_port_min": 30000
+      }
+    ],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-app-outgoing-traffic-requests",
+    "source": "0.0.0.0/0",
+    "tcp": [
+      {
+        "port_max": 32767,
+        "port_min": 30000,
+        "source_port_max": 1,
+        "source_port_min": 1
+      }
+    ],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "allow-lb-incoming-traffic-requests",
+    "source": "0.0.0.0/0",
+    "tcp": [
+      {
+        "port_max": 443,
+        "port_min": 443,
+        "source_port_max": 1,
+        "source_port_min": 1
+      }
+    ],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-lb-outgoing-traffic-requests",
+    "source": "0.0.0.0/0",
+    "tcp": [
+      {
+        "port_max": 65535,
+        "port_min": 1,
+        "source_port_max": 443,
+        "source_port_min": 443
+      }
+    ],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "allow-inbound-ez-iks-test-allow-all",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-outbound-ez-iks-test-allow-all",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "allow-inbound-ez-iks-test-subnet-zone-1",
+    "source": "10.10.10.0/24",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "10.10.10.0/24",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-outbound-ez-iks-test-subnet-zone-1",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "allow-inbound-ez-iks-test-subnet-zone-2",
+    "source": "10.20.10.0/24",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "10.20.10.0/24",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-outbound-ez-iks-test-subnet-zone-2",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "inbound",
+    "icmp": [],
+    "name": "allow-inbound-ez-iks-test-subnet-zone-3",
+    "source": "10.30.10.0/24",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "10.30.10.0/24",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-outbound-ez-iks-test-subnet-zone-3",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "outbound",
+    "icmp": [],
+    "name": "allow-all-outbound",
+    "source": "0.0.0.0/0",
+    "tcp": [],
+    "udp": []
+  }
+]
