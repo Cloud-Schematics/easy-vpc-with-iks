@@ -43,6 +43,17 @@ variable "tags" {
 # VPC Variables
 ##############################################################################
 
+variable "zones" {
+  description = "Number of zones for the cluster"
+  type        = number
+  default     = 1
+
+  validation {
+    error_message = "There must be at least one worker in each zone."
+    condition     = var.zones > 0 && var.zones < 4
+  }
+}
+
 variable "use_public_gateways" {
   description = "Add a public gateway in each zone."
   type        = bool

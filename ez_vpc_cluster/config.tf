@@ -11,25 +11,9 @@ data "ibm_container_cluster_versions" "cluster_versions" {}
 # Dynamic Config
 ##############################################################################
 
-module "dynamic_acl_allow_rules" {
-  source  = "./dynamic_acl_allow_rules"
-  subnets = local.subnets
-  prefix  = var.prefix
-}
-
-
-##############################################################################
-
-##############################################################################
-# Local configuration
-##############################################################################
-
 locals {
-  override = jsondecode(var.override_json)
-  ##############################################################################
-  # List of subnets for dynamic ACL rule creation
-  ##############################################################################
-  subnets = lookup(local.override, "subnets", {
+  # Default subnets
+  subnet_defaults = {
     zone-1 = var.allow_inbound_traffic ? [
       {
         name = "allow-all"
@@ -61,8 +45,42 @@ locals {
         public_gateway = true
       }
     ]
+  }
+
+  # Subnets for ACLs
+  acl_subnets = lookup(local.override, "subnets", {
+    for zone in [1,2,3]:
+    ("zone-${zone}") => zone > var.zones ? [] : local.subnet_defaults["zone-${zone}"]
   })
-  ##############################################################################
+
+  # Subnets
+  subnets = lookup(local.override, "subnets", {
+    for zone in [1,2,3] :
+    "zone-${zone}" => zone > var.zones ? [] : [
+      {
+        name           = "subnet-zone-${zone}"
+        cidr           = "10.${zone}0.10.0/24"
+        public_gateway = true
+        acl_name       = "acl"
+      }
+    ]
+  })
+}
+
+module "dynamic_acl_allow_rules" {
+  source  = "./dynamic_acl_allow_rules"
+  subnets = local.acl_subnets
+  prefix  = var.prefix
+}
+
+##############################################################################
+
+##############################################################################
+# Local configuration
+##############################################################################
+
+locals {
+  override = jsondecode(var.override_json)
 
   ##############################################################################
   # VPC config
@@ -70,37 +88,8 @@ locals {
   config = {
     vpc_name       = "vpc"
     prefix         = var.prefix
+    subnets        = local.subnets
     classic_access = var.classic_access
-    ##############################################################################
-    # Subnets
-    ##############################################################################
-    subnets = {
-      zone-1 = [
-        {
-          name           = "subnet-zone-1"
-          cidr           = "10.10.10.0/24"
-          public_gateway = true
-          acl_name       = "acl"
-        }
-      ],
-      zone-2 = [
-        {
-          name           = "subnet-zone-2"
-          cidr           = "10.20.10.0/24"
-          public_gateway = true
-          acl_name       = "acl"
-        }
-      ],
-      zone-3 = [
-        {
-          name           = "subnet-zone-3"
-          cidr           = "10.30.10.0/24"
-          public_gateway = true
-          acl_name       = "acl"
-        }
-      ]
-    }
-    ##############################################################################
 
     ##############################################################################
     # ACL rules
@@ -151,7 +140,8 @@ locals {
 
     cluster = {
       subnets = [
-        "subnet-zone-1", "subnet-zone-2", "subnet-zone-3"
+        for zone in range(0, var.zones, 1): 
+        ["subnet-zone-1", "subnet-zone-2", "subnet-zone-3"][zone]
       ]
 
       name                            = "${var.prefix}-roks-cluster"
@@ -164,10 +154,10 @@ locals {
 
     ##############################################################################
 
-    
+
   }
 
-  override_vpc = lookup(local.override, "vpc", {})
+  override_vpc     = lookup(local.override, "vpc", {})
   override_cluster = lookup(local.override, "cluster", {})
 
   env = {

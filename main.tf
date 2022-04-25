@@ -3,7 +3,8 @@
 ##############################################################################
 
 provider "ibm" {
-  ibmcloud_api_key = var.ibmcloud_api_key
+  # Comment out for schematics, to run locally uncomment
+  # ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
   ibmcloud_timeout = 60
 }
@@ -20,6 +21,7 @@ module "ez_vpc" {
   prefix                = var.prefix
   region                = var.region
   resource_group        = var.resource_group
+  zones                 = var.zones
   tags                  = var.tags
   use_public_gateways   = var.use_public_gateways
   allow_inbound_traffic = var.allow_inbound_traffic

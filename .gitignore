@@ -9,3 +9,5 @@ provider.tf
 *.yaml
 dev.sh
 *.sh
+node_modules/
+package-lock.json

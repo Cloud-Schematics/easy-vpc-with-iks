@@ -2,11 +2,12 @@
 # Template Variables
 ##############################################################################
 
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
+# Comment out for schematics, to run locally uncomment
+# variable "ibmcloud_api_key" {
+#   description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+#   type        = string
+#   sensitive   = true
+# }
 
 variable "TF_VERSION" {
   default     = "1.0"
@@ -86,6 +87,17 @@ variable "classic_access" {
 # Cluster Variables
 ##############################################################################
 
+variable "zones" {
+  description = "Number of zones for the cluster"
+  type        = number
+  default     = 3
+
+  validation {
+    error_message = "There must be at least one worker in each zone."
+    condition     = var.zones > 0 && var.zones < 4
+  }
+}
+
 variable "iks_cluster_version" {
   description = "IKS Cluster version. To get a list of valid versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as `default`."
   type        = string
@@ -140,7 +152,7 @@ variable "wait_till" {
 variable "override" {
   description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
   type        = bool
-  default     = true
+  default     = false
 }
 
 ##############################################################################

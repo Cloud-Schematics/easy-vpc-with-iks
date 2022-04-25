@@ -1,4 +1,4 @@
-# Easy Multizone VPC IKS Cluster
+# Easy Multizone VPC IKS Cluster (Version 2)
 
 This template allows users to easily create a VPC with one subnet in each of three zones, with an IBM Kubernetes Service Cluster distributed in each zone with very few inputs needed by the user to quickly start using IBM Cloud VPC .
 
